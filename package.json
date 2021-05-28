@@ -29,6 +29,6 @@
     "loader-utils": "^1.0.2"
   },
   "devDependencies": {
-    "jest": "latest"
+    "jest": "^27.0.1"
   }
 }

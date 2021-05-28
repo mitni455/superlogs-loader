@@ -1,42 +1,50 @@
-const utils = require('loader-utils')
+/**
+ * @requires findAllCommentModels
+ */
+const { findAllCommentModels } = require('./src');
 
-function performReplacement(source, options) {
-  if (!options) return source
+/**
+ * @requires WebPack
+ */
+const utils = require('loader-utils');
 
-  const searchDefined = Boolean(options.search) || options.search === ''
-  const replaceDefined = Boolean(options.replace) || options.replace === ''
-
-  if (searchDefined && replaceDefined) {
-    if (options.flags) {
-      options.search = new RegExp(options.search, options.flags)
-    }
-
-    source = source.replace(options.search, options.replace)
-  }
-
-  return source
+/**
+ * 
+ * @param {string} txtFileOriginal - source text file
+ * @param {Options} options - options 
+ * @returns {string} txtFileUpdated - transformed text file
+ */
+function performTransform(txtFileOriginal, options) {
+  const {
+    txtUpdated,
+    models,
+  } = findAllCommentModels(txtFileOriginal);
+  return txtUpdated;
 }
 
-module.exports = function (source) {
+/**
+ * Webpack loader 
+ * @param {string} txtFileOriginal - original text file
+ * @returns {string} txtFileUpdated - transformed text file
+ */
+module.exports = function (txtFileOriginal) {
   if (this.cacheable) {
     this.cacheable()
   }
 
-  const optionsConfig = this.options || this.query
+  /**
+   * @step Get Options
+   */
+  const optionsConfig = this.options || this.query;
   const options =
-    typeof optionsConfig === 'object' ? utils.getOptions(this) : utils.parseQuery(this.query)
+    typeof optionsConfig === 'object' ?
+      utils.getOptions(this) :
+      utils.parseQuery(this.query);
 
-  if (options && options.verbose) {
-    console.log('\nReplacing in file:', this.resourcePath)
-  }
+  /**
+   * @step Transform
+   */
+  const txtFileUpdated = performTransform(txtFileOriginal, options);
 
-  if (Array.isArray(options.multiple)) {
-    options.multiple.forEach(function (opt) {
-      source = performReplacement(source, opt)
-    })
-  } else {
-    source = performReplacement(source, options)
-  }
-
-  return source
+  return txtFileUpdated;
 }
