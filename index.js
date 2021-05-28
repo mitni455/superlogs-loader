@@ -10,17 +10,20 @@ const utils = require('loader-utils');
 
 /**
  * 
+ * @param {string} fileName - file name
  * @param {string} txtFileOriginal - source text file
  * @param {Options} options - options 
  * @returns {string} txtFileUpdated - transformed text file
  */
-function performTransform(txtFileOriginal, options) {
+function performTransform(fileName, txtFileOriginal, options) {
   const {
     txtUpdated,
     models,
   } = findAllCommentModels(txtFileOriginal);
 
-  console.log({txtUpdated});
+  console.log(fileName, {txtUpdated});
+  const header = `import {logger as superlogs} from 'superlogs';
+  const logs = superlogs('${fileName}')`
 
   return txtUpdated;
 }
@@ -32,8 +35,13 @@ function performTransform(txtFileOriginal, options) {
  */
 module.exports = function (txtFileOriginal) {
   if (this.cacheable) {
-    this.cacheable()
+    this.cacheable();
   }
+
+  /**
+   * @const {string} fileName - file name 
+   */
+  const fileName = this._module.resource;
 
   /**
    * @step Get Options
@@ -47,7 +55,7 @@ module.exports = function (txtFileOriginal) {
   /**
    * @step Transform
    */
-  const txtFileUpdated = performTransform(txtFileOriginal, options);
+  const txtFileUpdated = performTransform(fileName, txtFileOriginal, options);
 
   return txtFileUpdated;
 }
