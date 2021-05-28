@@ -17,7 +17,6 @@ const {
     replaceStep,
     replaceGoto,
     replaceFetch,
-    replaceUrl,
     replaceMongo,
     replaceEvent,
     replaceDispatch,
