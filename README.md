@@ -98,7 +98,7 @@ In your target file
 
 This will be replaced after build with `superlogs`
 ```js
-logs.addDesc('debugVar', debugVar);
+logs.addData('debugVar', debugVar);
 
 ```
 
