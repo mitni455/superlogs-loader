@@ -1,14 +1,17 @@
 {
-  "name": "pattern-replace-loader",
-  "version": "1.0.5",
-  "description": "pattern replace loader for webpack",
+  "name": "superlogs-loader",
+  "version": "1.0.0",
+  "description": "webpack loader for superlogs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "publish:patch": "npm version patch && npm publish",
+    "publish:minor": "npm version minor && npm publish",
+    "publish:major": "npm version major && npm publish"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aganglada/pattern-replace-loader.git"
+    "url": "git+https://github.com/mitni455/superlogs-loader.git"
   },
   "keywords": [
     "pattern",
@@ -16,13 +19,16 @@
     "string",
     "webpack"
   ],
-  "author": "Alejandro Garcia Anglada (aganglada@gmail.com>)",
+  "author": "Nick Mitchell (nickymitch@gmail.com>)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/aganglada/pattern-replace-loader/issues"
+    "url": "https://github.com/mitni455/superlogs-loader/issues"
   },
-  "homepage": "https://github.com/aganglada/pattern-replace-loader#readme",
+  "homepage": "https://github.com/mitni455/superlogs-loader#readme",
   "dependencies": {
     "loader-utils": "^1.0.2"
+  },
+  "devDependencies": {
+    "jest": "latest"
   }
 }
