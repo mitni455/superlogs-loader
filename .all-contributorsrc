@@ -6,6 +6,16 @@
   "commit": false,
   "contributors": [
     {
+      "login": "mitni455",
+      "name": "Nick Mitchell",
+      "avatar_url": "https://avatars.githubusercontent.com/u/576254?v=4",
+      "profile": "https://github.com/mitni455",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
+    },
+    {
       "login": "aganglada",
       "name": "Alejandro Garcia Anglada",
       "avatar_url": "https://avatars.githubusercontent.com/u/922348?v=4",
