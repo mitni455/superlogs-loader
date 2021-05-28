@@ -264,7 +264,7 @@ function findAllCommentModels(txtToParse) {
             delete model.classes;
         }
         if (model.namespaces) {
-            txtUpdated = replaceNamespace(txtUpdated, txtComment, model.namespaces);
+            // txtUpdated = replaceNamespace(txtUpdated, txtComment, model.namespaces);
         }
         else {
             delete model.namespaces;
