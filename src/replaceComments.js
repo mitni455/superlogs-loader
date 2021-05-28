@@ -6,22 +6,30 @@ const _replaceComment = (txtToUpdate, txtDocComment, description, txtMetaAdd) =>
 /**
  * @see addCheck(checkDesc, debugData)
  */
-const replaceCheck = (txtToUpdate, txtDocComment, description) => _replaceComment(txtToUpdate, txtDocComment, description, 'addCheck');
+function replaceCheck(txtToUpdate, txtDocComment, description){
+    return _replaceComment(txtToUpdate, txtDocComment, description, 'addCheck');
+}    
 
 /**
  * @see addIf(description, val)
  */
-const replaceIf = (txtToUpdate, txtDocComment, description) => _replaceComment(txtToUpdate, txtDocComment, description, 'addIf');
+function replaceIf(txtToUpdate, txtDocComment, description){
+    return _replaceComment(txtToUpdate, txtDocComment, description, 'addIf');
+}    
 
 /**
  * @see addElseIf(description, val)
  */
-const replaceElseIf = (txtToUpdate, txtDocComment, description) => _replaceComment(txtToUpdate, txtDocComment, description, 'addElseIf');
+function replaceElseIf(txtToUpdate, txtDocComment, description){
+    return _replaceComment(txtToUpdate, txtDocComment, description, 'addElseIf');
+}    
 
 /**
  * @see addElse(description, val)
  */
-const replaceElse = (txtToUpdate, txtDocComment, description) => _replaceComment(txtToUpdate, txtDocComment, description, 'addElse');
+function replaceElse(txtToUpdate, txtDocComment, description){
+    return _replaceComment(txtToUpdate, txtDocComment, description, 'addElse');
+}    
 
 /**
  * @see addNamespace(namespace)
@@ -201,10 +209,10 @@ function replaceData(txtToUpdate, txtDocComment, keyOrJson, val){
     
     let txtLog;
     if(val){
-        txtLog = `logs.addData('${key}', ${val});\n`
+        txtLog = `logs.addData('${keyOrJson}', ${val});\n`
     }
     else{
-        txtLog = `logs.addData({ ${keyOrJson} });\n`
+        txtLog = `logs.addData({ '${keyOrJson}': ${keyOrJson} });\n`
     }
 
     return txtToUpdate.replace(
