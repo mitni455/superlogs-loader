@@ -72,7 +72,6 @@ module.exports = {
     replaceStep,
     replaceGoto,
     replaceFetch,
-    replaceUrl,
     replaceMongo,
     replaceEvent,
     replaceDispatch,

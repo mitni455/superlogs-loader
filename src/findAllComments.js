@@ -7,7 +7,6 @@ const regexComments = require('./regexComments');
  * @requires replaceComments
  */
 const {
-    replaceComment,
     replaceCheck,
     replaceIf,
     replaceElseIf,

@@ -1,12 +1,32 @@
-const replaceComment = (txtToUpdate, txtDocComment, description, txtMetaAdd) => txtToUpdate.replace(
+const _replaceComment = (txtToUpdate, txtDocComment, description, txtMetaAdd) => txtToUpdate.replace(
     txtDocComment,
     `logs.${txtMetaAdd}('${description}');\n`
 );
-const replaceCheck = (txtToUpdate, txtDocComment, description) => replaceComment(txtToUpdate, txtDocComment, description, 'addCheck');
-const replaceIf = (txtToUpdate, txtDocComment, description) => replaceComment(txtToUpdate, txtDocComment, description, 'addIf');
-const replaceElseIf = (txtToUpdate, txtDocComment, description) => replaceComment(txtToUpdate, txtDocComment, description, 'addElseIf');
-const replaceElse = (txtToUpdate, txtDocComment, description) => replaceComment(txtToUpdate, txtDocComment, description, 'addElse');
-const replaceNamespace = (txtToUpdate, txtDocComment, description) => replaceComment(txtToUpdate, txtDocComment, description, 'addNamespace');
+
+/**
+ * @see addCheck(checkDesc, debugData)
+ */
+const replaceCheck = (txtToUpdate, txtDocComment, description) => _replaceComment(txtToUpdate, txtDocComment, description, 'addCheck');
+
+/**
+ * @see addIf(description, val)
+ */
+const replaceIf = (txtToUpdate, txtDocComment, description) => _replaceComment(txtToUpdate, txtDocComment, description, 'addIf');
+
+/**
+ * @see addElseIf(description, val)
+ */
+const replaceElseIf = (txtToUpdate, txtDocComment, description) => _replaceComment(txtToUpdate, txtDocComment, description, 'addElseIf');
+
+/**
+ * @see addElse(description, val)
+ */
+const replaceElse = (txtToUpdate, txtDocComment, description) => _replaceComment(txtToUpdate, txtDocComment, description, 'addElse');
+
+/**
+ * @see addNamespace(namespace)
+ */
+const replaceNamespace = (txtToUpdate, txtDocComment, description) => _replaceComment(txtToUpdate, txtDocComment, description, 'addNamespace');
 
 
 /**
@@ -80,7 +100,7 @@ function replaceFetch(txtToUpdate, txtDocComment, description, url, body, header
  * @see addMongo(description, debugData)
  */
 function replaceMongo(txtToUpdate, txtDocComment, description){
-    return replaceComment(txtToUpdate, txtDocComment, description, 'addMongo');
+    return _replaceComment(txtToUpdate, txtDocComment, description, 'addMongo');
 }
 
 /**
@@ -194,7 +214,7 @@ function replaceData(txtToUpdate, txtDocComment, keyOrJson, val){
 }
 
 module.exports = {
-    replaceComment,
+    replaceComment: _replaceComment,
     replaceCheck,
     replaceIf,
     replaceElseIf,
@@ -204,7 +224,6 @@ module.exports = {
     replaceStep,
     replaceGoto,
     replaceFetch,
-    replaceUrl,
     replaceMongo,
     replaceEvent,
     replaceDispatch,
