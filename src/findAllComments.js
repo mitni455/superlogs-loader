@@ -252,7 +252,7 @@ function findAllCommentModels(txtToParse) {
             delete model.functions;
         }
         if (model.methods) {
-            txtUpdated = replaceMethod(txtUpdated, txtComment, model.methods);
+            txtUpdated = replaceMethod(txtUpdated, txtComment, model.methods, model.descs || model.descriptions);
         }
         else {
             delete model.methods;
