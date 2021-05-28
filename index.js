@@ -19,6 +19,9 @@ function performTransform(txtFileOriginal, options) {
     txtUpdated,
     models,
   } = findAllCommentModels(txtFileOriginal);
+
+  console.log({txtUpdated});
+
   return txtUpdated;
 }
 
