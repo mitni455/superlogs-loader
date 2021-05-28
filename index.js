@@ -22,10 +22,9 @@ function performTransform(fileName, txtFileOriginal, options) {
   } = findAllCommentModels(txtFileOriginal);
 
   console.log(fileName, {txtUpdated});
-  const header = `import {logger as superlogs} from 'superlogs';
-  const logs = superlogs('${fileName}')`
+  const header = `import {logger as superlogs} from 'superlogs';\nconst logs = superlogs('${fileName}')\n\n`;
 
-  return txtUpdated;
+  return header + txtUpdated;
 }
 
 /**
