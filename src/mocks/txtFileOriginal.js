@@ -75,11 +75,11 @@ dasfasd
  */
 
 /**
- * @error error statament 
+ * @error error 
  */
 
 /**
- * @throws throws statement 
+ * @throws throws 
  */
 
 /**

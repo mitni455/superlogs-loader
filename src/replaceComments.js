@@ -1,12 +1,20 @@
-const _replaceComment = (txtToUpdate, txtDocComment, description, txtMetaAdd) => txtToUpdate.replace(
-    txtDocComment,
-    `logs.${txtMetaAdd}('${description}');\n`
-);
+const _replaceComment = (txtToUpdate, txtDocComment, description, txtMetaAdd) => {
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
+    
+    return txtToUpdate.replace(
+        txtDocComment,
+        `logs.${txtMetaAdd}('${description}');\n`
+    );
+}
 
 /**
  * @see addCheck(checkDesc, debugData)
  */
 function replaceCheck(txtToUpdate, txtDocComment, description){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
+
     return _replaceComment(txtToUpdate, txtDocComment, description, 'addCheck');
 }    
 
@@ -14,6 +22,9 @@ function replaceCheck(txtToUpdate, txtDocComment, description){
  * @see addIf(description, val)
  */
 function replaceIf(txtToUpdate, txtDocComment, description){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
+
     return _replaceComment(txtToUpdate, txtDocComment, description, 'addIf');
 }    
 
@@ -21,6 +32,9 @@ function replaceIf(txtToUpdate, txtDocComment, description){
  * @see addElseIf(description, val)
  */
 function replaceElseIf(txtToUpdate, txtDocComment, description){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
+
     return _replaceComment(txtToUpdate, txtDocComment, description, 'addElseIf');
 }    
 
@@ -28,6 +42,9 @@ function replaceElseIf(txtToUpdate, txtDocComment, description){
  * @see addElse(description, val)
  */
 function replaceElse(txtToUpdate, txtDocComment, description){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
+
     return _replaceComment(txtToUpdate, txtDocComment, description, 'addElse');
 }    
 
@@ -41,7 +58,20 @@ const replaceNamespace = (txtToUpdate, txtDocComment, description) => _replaceCo
  * @see addMethod(methodName, methodDesc)
  */
 function replaceMethod(txtToUpdate, txtDocComment, methodName, methodDesc, methodArgs){
-    let txtLog = `logs.addMethod('${methodName}', '${methodDesc}', ${methodArgs});\n`;
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
+    if(!txtDocComment) throw new Error(`You must provide methodName for @method. methodName: ${methodName}`);
+
+    let txtLog;
+    if(methodDesc && methodArgs){
+        txtLog = `logs.addMethod('${methodName}', '${methodDesc}', ${methodArgs});\n`;
+    }
+    else if(!methodDesc && methodArgs){
+        txtLog = `logs.addMethod('${methodName}', '', ${methodArgs});\n`;
+    }
+    else{
+        txtLog = `logs.addMethod('${methodName}');\n`;
+    }
 
     return txtToUpdate.replace(
         txtDocComment,
@@ -53,6 +83,9 @@ function replaceMethod(txtToUpdate, txtDocComment, methodName, methodDesc, metho
  * @see addStep(description)
  */
 function replaceStep(txtToUpdate, txtDocComment, description){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
+
     let txtLog = `logs.addStep('${description}');\n`;
 
     return txtToUpdate.replace(
@@ -65,13 +98,19 @@ function replaceStep(txtToUpdate, txtDocComment, description){
  * @see addGoto(method, namespace, isReturn)
  */
 function replaceGoto(txtToUpdate, txtDocComment, method, namespace, isReturn){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
+    if(!txtDocComment) throw new Error(`You must provide a methodname for @goto. method: ${method}`);
     
     let txtLogs;
-    if(isReturn === undefined){
-        txtLogs = `logs.addGoto('${method}', '${namespace}', ${isReturn});\n`;
+    if(isReturn !== undefined){
+        txtLogs = `logs.addGoto('${method}', '${namespace || ''}', ${isReturn});\n`;
+    }
+    else if(method && namespace){
+        txtLogs = `logs.addGoto('${method}', '${namespace}');\n`;
     }
     else{
-        txtLogs = `logs.addGoto('${method}', '${namespace}');\n`;
+        txtLogs = `logs.addGoto('${method}');\n`;
     }
     return txtToUpdate.replace(
         txtDocComment,
@@ -83,6 +122,9 @@ function replaceGoto(txtToUpdate, txtDocComment, method, namespace, isReturn){
  * @see addFetch(method, url, body, headers)
  */
 function replaceFetch(txtToUpdate, txtDocComment, description, url, body, headers){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
+    if(!url) throw new Error(`You must provide a URL for the fetch. @url: ${url}`);
 
     let txtLog;
     if(body && headers){
@@ -98,7 +140,7 @@ function replaceFetch(txtToUpdate, txtDocComment, description, url, body, header
         txtLog = `logs.addFetch('${description}', '${url}');\n`
     }
 
-    txtToUpdate.replace(
+    return txtToUpdate.replace(
         txtDocComment,
         txtLog
     );
@@ -108,6 +150,9 @@ function replaceFetch(txtToUpdate, txtDocComment, description, url, body, header
  * @see addMongo(description, debugData)
  */
 function replaceMongo(txtToUpdate, txtDocComment, description){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
+
     return _replaceComment(txtToUpdate, txtDocComment, description, 'addMongo');
 }
 
@@ -115,12 +160,19 @@ function replaceMongo(txtToUpdate, txtDocComment, description){
  * @see addFireEvent(key, val, channel)
  */
 function replaceEvent(txtToUpdate, txtDocComment, key, val, channel){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
+    if(!txtDocComment) throw new Error(`You must provide a key to the @event. key: ${key}`);
+
     let txtLog;
-    if(channel){
+    if(channel && val){
         txtLog = `logs.addEvent('${key}', ${val}, ${channel});\n`;
     }
-    else{
+    else if(!channel && val){
         txtLog = `logs.addEvent('${key}', ${val});\n`;
+    }
+    else{
+        txtLog = `logs.addEvent('${key}');\n`;
     }
 
     return txtToUpdate.replace(
@@ -133,6 +185,8 @@ function replaceEvent(txtToUpdate, txtDocComment, key, val, channel){
  * @see addDispatch(actionType, actionPayload)
  */
 function replaceDispatch(txtToUpdate, txtDocComment, actionType, actionPayload){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
     
     let txtLog;
     if(actionPayload){
@@ -152,6 +206,10 @@ function replaceDispatch(txtToUpdate, txtDocComment, actionType, actionPayload){
  * @see addLoop(description, debugData, loopType = 'for')
  */
 function replaceLoop(txtToUpdate, txtDocComment, description, debugData, loopType){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
+    if(!txtDocComment) throw new Error(`You must provide a description for @loop. description: ${description}`);
+
     let txtLog;
     if(debugData){
         txtLog = `logs.addLoop('${description}', ${debugData}, ${loopType || 'for'});\n`;
@@ -170,6 +228,8 @@ function replaceLoop(txtToUpdate, txtDocComment, description, debugData, loopTyp
  * @see addThrows(error, optionalDescription)
  */
 function replaceThrow(txtToUpdate, txtDocComment, error, optionalDescription){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
     
     let txtLog;
     if(optionalDescription){
@@ -188,12 +248,15 @@ function replaceThrow(txtToUpdate, txtDocComment, error, optionalDescription){
  * @see addError(error, optionalDescription)
  */
 function replaceError(txtToUpdate, txtDocComment, error, optionalDescription){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
+
     let txtLog;
     if(optionalDescription){
-        txtLog = `logs.addThrow(${error}, '${optionalDescription}');\n`;
+        txtLog = `logs.addError(${error}, '${optionalDescription}');\n`;
     }
     else{
-        txtLog = `logs.addThrow(${error});\n`;
+        txtLog = `logs.addError(${error});\n`;
     }
 
     return txtToUpdate.replace(
@@ -206,6 +269,8 @@ function replaceError(txtToUpdate, txtDocComment, error, optionalDescription){
  * @see addData(keyOrData, dataValIfKey, optionalFlag)
  */
 function replaceData(txtToUpdate, txtDocComment, keyOrJson, val){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
     
     let txtLog;
     if(val){
@@ -225,6 +290,8 @@ function replaceData(txtToUpdate, txtDocComment, keyOrJson, val){
  * @see addSuccess(keyOrData, dataValIfKey)
  */
 function replaceSuccess(txtToUpdate, txtDocComment, keyOrJson, val){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
     
     let txtLog;
     if(val){
@@ -244,6 +311,8 @@ function replaceSuccess(txtToUpdate, txtDocComment, keyOrJson, val){
  * @see addFailed(keyOrData, dataValIfKey)
  */
 function replaceFailed(txtToUpdate, txtDocComment, keyOrJson, val){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
     
     let txtLog;
     if(val){
@@ -264,6 +333,9 @@ function replaceFailed(txtToUpdate, txtDocComment, keyOrJson, val){
  * @see addTry(description)
  */
  function replaceTry(txtToUpdate, txtDocComment, description){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
+
     let txtLog = `logs.addTry('${description}');\n`;
 
     return txtToUpdate.replace(
@@ -275,6 +347,9 @@ function replaceFailed(txtToUpdate, txtDocComment, keyOrJson, val){
  * @see addThen(description, payload)
  */
 function replaceThen(txtToUpdate, txtDocComment, description, payload){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
+
     let txtLog = `logs.addThen('${description}', ${payload});\n`;
 
     return txtToUpdate.replace(
@@ -286,6 +361,9 @@ function replaceThen(txtToUpdate, txtDocComment, description, payload){
  * @see addCatch(description, catchPayload)
  */
 function replaceCatch(txtToUpdate, txtDocComment, description, catchPayload){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
+
     let txtLog = `logs.addCatch('${description}', ${catchPayload});\n`;
 
     return txtToUpdate.replace(
@@ -297,6 +375,9 @@ function replaceCatch(txtToUpdate, txtDocComment, description, catchPayload){
  * @see addReturns(payload)
  */
 function replaceReturns(txtToUpdate, txtDocComment, catchPayload){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
+
     let txtLog = `logs.addReturns('${description}', ${catchPayload});\n`;
 
     return txtToUpdate.replace(
@@ -309,6 +390,9 @@ function replaceReturns(txtToUpdate, txtDocComment, catchPayload){
  * @see addFor(description, debugData)
  */
  function replaceFor(txtToUpdate, txtDocComment, description, debugData){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
+
     let txtLog;
     if(debugData){
         txtLog = `logs.addFor('${description}', ${debugData});\n`;
@@ -327,6 +411,9 @@ function replaceReturns(txtToUpdate, txtDocComment, catchPayload){
  * @see addForeach(description, debugData)
  */
 function replaceForEach(txtToUpdate, txtDocComment, description, debugData){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
+
     let txtLog;
     if(debugData){
         txtLog = `logs.addForeach('${description}', ${debugData});\n`;
@@ -345,6 +432,9 @@ function replaceForEach(txtToUpdate, txtDocComment, description, debugData){
  * @see addMap(description, debugData)
  */
 function replaceMap(txtToUpdate, txtDocComment, description, debugData){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
+
     let txtLog;
     if(debugData){
         txtLog = `logs.addMap('${description}', ${debugData});\n`;

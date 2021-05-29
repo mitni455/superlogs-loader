@@ -74,6 +74,7 @@ const {
     findForEach,
     findMap,
     findForData,
+    findPayload,
 } = require('./findComments');
 
 module.exports = {

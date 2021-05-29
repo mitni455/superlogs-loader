@@ -70,6 +70,7 @@ const {
     findForEach,
     findMap,
     findForData,
+    findPayload,
 } = require('./findComments');
 
 /**
@@ -163,7 +164,15 @@ function findAllCommentModels(txtToParse) {
         model.forEach = findForEach(txtComment);
         model.map = findMap(txtComment);
         model.forData = findForData(txtComment);
+        model.payload = findPayload(txtComment);
 
+        /**
+         * @payload
+         */
+        if(!model.payload){
+            delete model.payload;
+        }
+        
         /**
          * @if
          */
@@ -277,7 +286,7 @@ function findAllCommentModels(txtToParse) {
          * @url
          */
         if (model.fetch && model.url) {
-            txtUpdated = replaceFetch(txtUpdated, txtComment, model.fetch, model.url);
+            txtUpdated = replaceFetch(txtUpdated, txtComment, model.fetch, model.url);            
         }
         else {
             delete model.fetch;
@@ -328,7 +337,7 @@ function findAllCommentModels(txtToParse) {
          * @loop
          */
         if (model.loop) {
-            txtUpdated = replaceLoop(txtUpdated, txtComment, model.loop);
+            txtUpdated = replaceLoop(txtUpdated, txtComment, model.loop, model.desc || model.description, model.payload);
         }
         else {
             delete model.loop;
@@ -337,7 +346,7 @@ function findAllCommentModels(txtToParse) {
          * @dispatch
          */
         if (model.dispatch) {
-            txtUpdated = replaceDispatch(txtUpdated, txtComment, model.dispatch);
+            txtUpdated = replaceDispatch(txtUpdated, txtComment, model.dispatch, model.payload);
         }
         else {
             delete model.dispatch;
@@ -359,8 +368,8 @@ function findAllCommentModels(txtToParse) {
                 txtUpdated, 
                 txtComment, 
                 model.method, 
-                model.desc || model.description,
-                method.args,
+                model.desc || model.description || false,
+                model.args || false,
             );
         }
         else {

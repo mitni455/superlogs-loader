@@ -14,6 +14,8 @@ const regexComments = require('./regexComments');
 
     const regexStatement = regexComments[regexType];
 
+    if(!regexStatement) throw new Error(`I could not find a regex statement for the key: @${regexType}`);
+
     let match = regexStatement.exec(txtComment);
 
     if (match !== null) {
@@ -70,6 +72,7 @@ const findFor = txt => findDocComment(txt, 'for');
 const findForEach = txt => findDocComment(txt, 'forEach');
 const findMap = txt => findDocComment(txt, 'map');
 const findForData = txt => findDocComment(txt, 'forData');
+const findPayload = txt => findDocComment(txt, 'payload');
 
 /**
  * @exports findComments
@@ -108,4 +111,5 @@ module.exports = {
     findForEach,
     findMap,
     findForData,
+    findPayload,
 };

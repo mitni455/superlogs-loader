@@ -50,7 +50,7 @@ logs.addStep('data statement');
 logs.addMongo('mongo statement');
 
 
-logs.addFetch('fetch statement', url statement);
+logs.addFetch('fetch statement', 'url statement');
 
 
 /**
@@ -60,19 +60,19 @@ logs.addFetch('fetch statement', url statement);
 logs.addEvent('event statement');
 
 
-logs.addError('error statament');
+logs.addError(error);
 
 
-logs.addThrows('throws statement');
+logs.addThrow(throws);
 
 
-logs.addGoTo('goto statement');
+logs.addGoto('goto statement');
 
 
-logs.addLoop('undefined');
+logs.addLoop('loop statement');
 
 
-logs.addDispatch('undefined');
+logs.addDispatch('dispatch statement');
 
 
 /**
@@ -86,7 +86,9 @@ logs.addMethod('statement');
  * @class class statement 
  */
 
-logs.addNamespace('namespace statement');
+/**
+ * @namespace namespace statement 
+ */
 
 
 

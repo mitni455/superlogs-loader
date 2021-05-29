@@ -27,5 +27,5 @@ test('adds 1 + 2 to equal 3', () => {
 test('#findAllCommentModels should be updated', () => {
     const {txtUpdated} = findAllCommentModels(txtFileOriginal);
     expect(txtUpdated.trim()).toEqual(txtFileUpdated.trim());
-    console.log(txtFileUpdated.trim());
+    // console.log(txtFileUpdated.trim());
 });

@@ -11,6 +11,8 @@
     note: /^.*@note\s+([^\n]*).*$/sgi,
     step: /^.*@step\s+([^\n]*).*$/sgi,
     data: /^.*@data\s+([^\n]*).*$/sgi,
+    success: /^.*@data\s+([^\n]*).*$/sgi,
+    failed: /^.*@data\s+([^\n]*).*$/sgi,
     mongo: /^.*@mongo\s+([^\n]*).*$/sgi,
     fetch: /^.*@fetch\s+([^\n]*).*$/sgi,
     url: /^.*@url\s+([^\n]*).*$/sgi,
@@ -33,6 +35,7 @@
     forEach: /^.*@forEach\s+([^\n]*).*$/sgi,
     map: /^.*@map\s+([^\n]*).*$/sgi,
     forData: /^.*@forData\s+([^\n]*).*$/sgi,
+    payload: /^.*@payload\s+([^\n]*).*$/sgi,
 };
 
 module.exports = regexComments;
