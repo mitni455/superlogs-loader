@@ -460,7 +460,7 @@ function findAllCommentModels(txtToParse) {
          * @forData
          */
         if(model.forData){
-            txtUpdated = replaceForData(txtUpdated, txtComment, model.forData);
+            // txtUpdated = replaceForData(txtUpdated, txtComment, model.forData);
         }
         else{
             delete model.forData;
