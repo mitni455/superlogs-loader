@@ -24,6 +24,15 @@
     method: /^.*@method\s+([^\n]*).*$/sgi,
     class: /^.*@class\s+([^\n]*).*$/sgi,
     namespace: /^.*@namespace\s+([^\n]*).*$/sgi,
+    try: /^.*@try\s+([^\n]*).*$/sgi,
+    then: /^.*@then\s+([^\n]*).*$/sgi,
+    catch: /^.*@catch\s+([^\n]*).*$/sgi,
+    returns: /^.*@returns\s+([^\n]*).*$/sgi,
+    args: /^.*@args\s+([^\n]*).*$/sgi,
+    for: /^.*@for\s+([^\n]*).*$/sgi,
+    forEach: /^.*@forEach\s+([^\n]*).*$/sgi,
+    map: /^.*@map\s+([^\n]*).*$/sgi,
+    forData: /^.*@forData\s+([^\n]*).*$/sgi,
 };
 
 module.exports = regexComments;

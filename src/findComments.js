@@ -59,6 +59,17 @@ const findFunctionComment = txt => findDocComment(txt, 'function');
 const findMethodComment = txt => findDocComment(txt, 'method');
 const findClassComment = txt => findDocComment(txt, 'class');
 const findNamespaceComment = txt => findDocComment(txt, 'namespace');
+const findSuccess = txt => findDocComment(txt, 'success');
+const findFailed = txt => findDocComment(txt, 'failed');
+const findTry = txt => findDocComment(txt, 'try');
+const findThen = txt => findDocComment(txt, 'then');
+const findCatch = txt => findDocComment(txt, 'catch');
+const findReturns = txt => findDocComment(txt, 'returns');
+const findArgs = txt => findDocComment(txt, 'args');
+const findFor = txt => findDocComment(txt, 'for');
+const findForEach = txt => findDocComment(txt, 'forEach');
+const findMap = txt => findDocComment(txt, 'map');
+const findForData = txt => findDocComment(txt, 'forData');
 
 /**
  * @exports findComments
@@ -86,4 +97,15 @@ module.exports = {
     findMethodComment,
     findClassComment,
     findNamespaceComment,
+    findSuccess,
+    findFailed,
+    findTry,
+    findThen,
+    findCatch,
+    findReturns,
+    findArgs,
+    findFor,
+    findForEach,
+    findMap,
+    findForData,
 };

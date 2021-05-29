@@ -2,7 +2,7 @@
  * @requires replaceComments
  */
  const {
-    replaceComment,
+    // replaceComment,
     replaceCheck,
     replaceIf,
     replaceElseIf,
@@ -12,7 +12,6 @@
     replaceStep,
     replaceGoto,
     replaceFetch,
-    replaceUrl,
     replaceMongo,
     replaceEvent,
     replaceDispatch,
@@ -20,6 +19,15 @@
     replaceThrow,
     replaceError,
     replaceData,
+    replaceSuccess,
+    replaceFailed,
+    replaceTry,
+    replaceThen,
+    replaceCatch,
+    replaceReturns,
+    replaceFor,
+    replaceForEach,
+    replaceMap,
 } = require('./replaceComments');
 
 /**
@@ -56,13 +64,23 @@ const {
     findMethodComment,
     findClassComment,
     findNamespaceComment,
+    findSuccess,
+    findFailed,
+    findTry,
+    findCatch,
+    findReturns,
+    findArgs,
+    findFor,
+    findForEach,
+    findMap,
+    findForData,
 } = require('./findComments');
 
 module.exports = {
     /**
      * @requires replaceComments
      */
-    replaceComment,
+    // replaceComment,
     replaceCheck,
     replaceIf,
     replaceElseIf,
@@ -79,6 +97,17 @@ module.exports = {
     replaceThrow,
     replaceError,
     replaceData,
+    replaceSuccess,
+    replaceFailed,
+    replaceTry,
+    replaceThen,
+    replaceCatch,
+    replaceReturns,
+    replaceArgs,
+    replaceFor,
+    replaceForEach,
+    replaceMap,
+    replaceForData,
 
     /**
      * @requires findComments
@@ -105,6 +134,16 @@ module.exports = {
     findMethodComment,
     findClassComment,
     findNamespaceComment,
+    findSuccess,
+    findFailed,
+    findTry,
+    findCatch,
+    findReturns,
+    findArgs,
+    findFor,
+    findForEach,
+    findMap,
+    findForData,
 
     /**
      * @requires findAllCommentModels

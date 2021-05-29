@@ -40,8 +40,8 @@ const replaceNamespace = (txtToUpdate, txtDocComment, description) => _replaceCo
 /**
  * @see addMethod(methodName, methodDesc)
  */
-function replaceMethod(txtToUpdate, txtDocComment, methodName, methodDesc){
-    let txtLog = `logs.addMethod('${methodName}', '${methodDesc}');\n`;
+function replaceMethod(txtToUpdate, txtDocComment, methodName, methodDesc, methodArgs){
+    let txtLog = `logs.addMethod('${methodName}', '${methodDesc}', ${methodArgs});\n`;
 
     return txtToUpdate.replace(
         txtDocComment,
@@ -52,7 +52,7 @@ function replaceMethod(txtToUpdate, txtDocComment, methodName, methodDesc){
 /**
  * @see addStep(description)
  */
- function replaceStep(txtToUpdate, txtDocComment, description){
+function replaceStep(txtToUpdate, txtDocComment, description){
     let txtLog = `logs.addStep('${description}');\n`;
 
     return txtToUpdate.replace(
@@ -221,8 +221,146 @@ function replaceData(txtToUpdate, txtDocComment, keyOrJson, val){
     );
 }
 
+/**
+ * @see addSuccess(keyOrData, dataValIfKey)
+ */
+function replaceSuccess(txtToUpdate, txtDocComment, keyOrJson, val){
+    
+    let txtLog;
+    if(val){
+        txtLog = `logs.addSuccess('${keyOrJson}', ${val});\n`
+    }
+    else{
+        txtLog = `logs.addSuccess({ '${keyOrJson}': ${keyOrJson} });\n`
+    }
+
+    return txtToUpdate.replace(
+        txtDocComment,
+        txtLog
+    );
+}
+
+/**
+ * @see addFailed(keyOrData, dataValIfKey)
+ */
+function replaceFailed(txtToUpdate, txtDocComment, keyOrJson, val){
+    
+    let txtLog;
+    if(val){
+        txtLog = `logs.addFailed('${keyOrJson}', ${val});\n`
+    }
+    else{
+        txtLog = `logs.addFailed({ '${keyOrJson}': ${keyOrJson} });\n`
+    }
+
+    return txtToUpdate.replace(
+        txtDocComment,
+        txtLog
+    );
+}
+
+
+/**
+ * @see addTry(description)
+ */
+ function replaceTry(txtToUpdate, txtDocComment, description){
+    let txtLog = `logs.addTry('${description}');\n`;
+
+    return txtToUpdate.replace(
+        txtDocComment,
+        txtLog
+    );
+}
+/**
+ * @see addThen(description, payload)
+ */
+function replaceThen(txtToUpdate, txtDocComment, description, payload){
+    let txtLog = `logs.addThen('${description}', ${payload});\n`;
+
+    return txtToUpdate.replace(
+        txtDocComment,
+        txtLog
+    );
+}
+/**
+ * @see addCatch(description, catchPayload)
+ */
+function replaceCatch(txtToUpdate, txtDocComment, description, catchPayload){
+    let txtLog = `logs.addCatch('${description}', ${catchPayload});\n`;
+
+    return txtToUpdate.replace(
+        txtDocComment,
+        txtLog
+    );
+}
+/**
+ * @see addReturns(payload)
+ */
+function replaceReturns(txtToUpdate, txtDocComment, catchPayload){
+    let txtLog = `logs.addReturns('${description}', ${catchPayload});\n`;
+
+    return txtToUpdate.replace(
+        txtDocComment,
+        txtLog
+    );
+}
+
+/**
+ * @see addFor(description, debugData)
+ */
+ function replaceFor(txtToUpdate, txtDocComment, description, debugData){
+    let txtLog;
+    if(debugData){
+        txtLog = `logs.addFor('${description}', ${debugData});\n`;
+    }
+    else{
+        txtLog = `logs.addFor('${description}');\n`;
+    }
+
+    return txtToUpdate.replace(
+        txtDocComment,
+        txtLog    
+    );
+}
+
+/**
+ * @see addForeach(description, debugData)
+ */
+function replaceForEach(txtToUpdate, txtDocComment, description, debugData){
+    let txtLog;
+    if(debugData){
+        txtLog = `logs.addForeach('${description}', ${debugData});\n`;
+    }
+    else{
+        txtLog = `logs.addForeach('${description}');\n`;
+    }
+
+    return txtToUpdate.replace(
+        txtDocComment,
+        txtLog    
+    );
+}
+
+/**
+ * @see addMap(description, debugData)
+ */
+function replaceMap(txtToUpdate, txtDocComment, description, debugData){
+    let txtLog;
+    if(debugData){
+        txtLog = `logs.addMap('${description}', ${debugData});\n`;
+    }
+    else{
+        txtLog = `logs.addMap('${description}');\n`;
+    }
+
+    return txtToUpdate.replace(
+        txtDocComment,
+        txtLog    
+    );
+}
+
 module.exports = {
-    replaceComment: _replaceComment,
+    //replaceComment: _replaceComment,
     replaceCheck,
     replaceIf,
     replaceElseIf,
@@ -239,4 +377,13 @@ module.exports = {
     replaceThrow,
     replaceError,
     replaceData,
+    replaceSuccess,
+    replaceFailed,
+    replaceTry,
+    replaceThen,
+    replaceCatch,
+    replaceReturns,
+    replaceFor,
+    replaceForEach,
+    replaceMap,
 };

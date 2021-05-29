@@ -23,6 +23,16 @@ const {
     replaceThrow,
     replaceError,
     replaceData,
+    replaceSuccess,
+    replaceFailed,
+    replaceTry,
+    replaceCatch,
+    replaceReturns,
+    replaceArgs,
+    replaceFor,
+    replaceForEach,
+    replaceMap,
+    replaceForData,
 } = require('./replaceComments');
 
 /**
@@ -51,6 +61,17 @@ const {
     findMethodComment,
     findClassComment,
     findNamespaceComment,
+    findSuccess,
+    findFailed,
+    findTry,
+    findThen,
+    findCatch,
+    findReturns,
+    findArgs,
+    findFor,
+    findForEach,
+    findMap,
+    findForData,
 } = require('./findComments');
 
 /**
@@ -111,163 +132,336 @@ function findAllCommentModels(txtToParse) {
     docCommentsModels = docComments.map((txtComment, index) => {
 
         let model = {}
-        model.ifs = findIfComment(txtComment);
-        model.elseIfs = findElseIfComment(txtComment);
-        model.elses = findElseComment(txtComment);
-        model.checks = findCheckComment(txtComment);
-        model.descs = findDescComment(txtComment);
-        model.descriptions = findDescriptionComment(txtComment);
-        model.notes = findNoteComment(txtComment);
-        model.steps = findStepComment(txtComment);
-        model.datas = findDataComment(txtComment);
-        model.mongos = findMongoComment(txtComment);
-        model.fetchs = findFetchComment(txtComment);
-        model.urls = findUrlComment(txtComment);
-        model.events = findEventComment(txtComment);
-        model.errors = findErrorComment(txtComment);
-        model.throws = findThrowsComment(txtComment);
-        model.gotos = findGotoComment(txtComment);
-        model.loops = findLoopComment(txtComment);
-        model.dispatchs = findDispatchComment(txtComment);
-        model.functions = findFunctionComment(txtComment);
-        model.methods = findMethodComment(txtComment);
-        model.classes = findClassComment(txtComment);
-        model.namespaces = findNamespaceComment(txtComment);
+        model.if = findIfComment(txtComment);
+        model.elseIf = findElseIfComment(txtComment);
+        model.else = findElseComment(txtComment);
+        model.check = findCheckComment(txtComment);
+        model.desc = findDescComment(txtComment);
+        model.description = findDescriptionComment(txtComment);
+        model.note = findNoteComment(txtComment);
+        model.step = findStepComment(txtComment);
+        model.data = findDataComment(txtComment);
+        model.success = findSuccess(txtComment);
+        model.failed = findFailed(txtComment);
+        model.mongo = findMongoComment(txtComment);
+        model.fetch = findFetchComment(txtComment);
+        model.url = findUrlComment(txtComment);
+        model.event = findEventComment(txtComment);
+        model.error = findErrorComment(txtComment);
+        model.throw = findThrowsComment(txtComment);
+        model.goto = findGotoComment(txtComment);
+        model.loop = findLoopComment(txtComment);
+        model.dispatch = findDispatchComment(txtComment);
+        model.function = findFunctionComment(txtComment);
+        model.method = findMethodComment(txtComment);
+        model.class = findClassComment(txtComment);
+        model.namespace = findNamespaceComment(txtComment);
+        model.try = findTry(txtComment);
+        model.then = findThen(txtComment);
+        model.catch = findCatch(txtComment);
+        model.returns = findReturns(txtComment);
+        model.args = findArgs(txtComment);
+        model.for = findFor(txtComment);
+        model.forEach = findForEach(txtComment);
+        model.map = findMap(txtComment);
+        model.forData = findForData(txtComment);
 
-
-        if (model.ifs) {
-            txtUpdated = replaceIf(txtUpdated, txtComment, model.ifs);
+        /**
+         * @if
+         */
+        if (model.if) {
+            txtUpdated = replaceIf(txtUpdated, txtComment, model.if);
         }
         else {
-            delete model.ifs;
+            delete model.if;
         }
-        if (model.elseIfs) {
-            txtUpdated = replaceElseIf(txtUpdated, txtComment, model.elseIfs);
-
-        }
-        else {
-            delete model.elseIfs;
-        }
-        if (model.elses) {
-            txtUpdated = replaceElse(txtUpdated, txtComment, model.elses);
-
-        }
-        else {
-            delete model.elses;
-        }
-        if (model.checks) {
-            txtUpdated = replaceCheck(txtUpdated, txtComment, model.checks);
-
-        }
-        else {
-            delete model.checks;
-        }
-        if (model.descs) {
+        /**
+         * @elseif
+         */
+        if (model.elseIf) {
+            txtUpdated = replaceElseIf(txtUpdated, txtComment, model.elseIf);
 
         }
         else {
-            delete model.descs;
+            delete model.elseIf;
         }
-        if (model.descriptions) {
+        /**
+         * @else
+         */
+        if (model.else) {
+            txtUpdated = replaceElse(txtUpdated, txtComment, model.else);
 
         }
         else {
-            delete model.descriptions;
+            delete model.else;
         }
-        if (model.notes) {
+        /**
+         * @check
+         */
+        if (model.check) {
+            txtUpdated = replaceCheck(txtUpdated, txtComment, model.check);
 
         }
         else {
-            delete model.notes;
+            delete model.check;
         }
-        if (model.steps) {
-            txtUpdated = replaceStep(txtUpdated, txtComment, model.steps);
-        }
-        else {
-            delete model.steps;
-        }
-        if (model.datas) {
-            txtUpdated = replaceData(txtUpdated, txtComment, model.datas);
+        /**
+         * @desc
+         */
+        if (model.desc) {
+
         }
         else {
-            delete model.datas;
+            delete model.desc;
         }
-        if (model.mongos) {
-            txtUpdated = replaceMongo(txtUpdated, txtComment, model.mongos);
-        }
-        else {
-            delete model.mongos;
-        }
-        if (model.fetchs && model.urls) {
-            txtUpdated = replaceFetch(txtUpdated, txtComment, model.fetchs, model.urls);
+        /**
+         * @description
+         */
+        if (model.description) {
+
         }
         else {
-            delete model.fetchs;
+            delete model.description;
         }
-        if (!model.urls) {
-            delete model.urls;
-        }
-        if (model.events) {
-            txtUpdated = replaceEvent(txtUpdated, txtComment, model.events);
-        }
-        else {
-            delete model.events;
-        }
-        if (model.errors) {
-            txtUpdated = replaceError(txtUpdated, txtComment, model.errors);
+        /**
+         * @note
+         */
+        if (model.note) {
+
         }
         else {
-            delete model.errors;
+            delete model.note;
         }
-        if (model.throws) {
-            txtUpdated = replaceThrow(txtUpdated, txtComment, model.throws);
-        }
-        else {
-            delete model.throws;
-        }
-        if (model.gotos) {
-            txtUpdated = replaceGoto(txtUpdated, txtComment, model.gotos);
+        if (model.step) {
+            txtUpdated = replaceStep(txtUpdated, txtComment, model.step);
         }
         else {
-            delete model.gotos;
+            delete model.step;
         }
-        if (model.loops) {
+        /**
+         * @data
+         */
+        if (model.data) {
+            txtUpdated = replaceData(txtUpdated, txtComment, model.data);
+        }
+        else {
+            delete model.data;
+        }
+        /**
+         * @success
+         */
+        if (model.success) {
+            txtUpdated = replaceSuccess(txtUpdated, txtComment, model.success);
+        }
+        else {
+            delete model.success;
+        }
+        /**
+         * @failed
+         */
+        if (model.failed) {
+            txtUpdated = replaceFailed(txtUpdated, txtComment, model.failed);
+        }
+        else {
+            delete model.failed;
+        }
+        /**
+         * @mongo
+         */
+        if (model.mongo) {
+            txtUpdated = replaceMongo(txtUpdated, txtComment, model.mongo);
+        }
+        else {
+            delete model.mongo;
+        }
+        /**
+         * @fetch
+         * @url
+         */
+        if (model.fetch && model.url) {
+            txtUpdated = replaceFetch(txtUpdated, txtComment, model.fetch, model.url);
+        }
+        else {
+            delete model.fetch;
+        }
+        /**
+         * @url
+         */
+        if (!model.url) {
+            delete model.url;
+        }
+        /**
+         * @event
+         */
+        if (model.event) {
+            txtUpdated = replaceEvent(txtUpdated, txtComment, model.event);
+        }
+        else {
+            delete model.event;
+        }
+        /**
+         * @error
+         */
+        if (model.error) {
+            txtUpdated = replaceError(txtUpdated, txtComment, model.error);
+        }
+        else {
+            delete model.error;
+        }
+        /**
+         * @throw
+         */
+        if (model.throw) {
+            txtUpdated = replaceThrow(txtUpdated, txtComment, model.throw);
+        }
+        else {
+            delete model.throw;
+        }
+        /**
+         * @goto
+         */
+        if (model.goto) {
+            txtUpdated = replaceGoto(txtUpdated, txtComment, model.goto);
+        }
+        else {
+            delete model.goto;
+        }
+        /**
+         * @loop
+         */
+        if (model.loop) {
             txtUpdated = replaceLoop(txtUpdated, txtComment, model.loop);
         }
         else {
-            delete model.loops;
+            delete model.loop;
         }
-        if (model.dispatchs) {
+        /**
+         * @dispatch
+         */
+        if (model.dispatch) {
             txtUpdated = replaceDispatch(txtUpdated, txtComment, model.dispatch);
         }
         else {
-            delete model.dispatchs;
+            delete model.dispatch;
         }
-        if (model.functions) {
+        /**
+         * @function
+         */
+        if (model.function) {
 
         }
         else {
-            delete model.functions;
+            delete model.function;
         }
-        if (model.methods) {
-            txtUpdated = replaceMethod(txtUpdated, txtComment, model.methods, model.descs || model.descriptions);
+        /**
+         * @method
+         */
+        if (model.method) {
+            txtUpdated = replaceMethod(
+                txtUpdated, 
+                txtComment, 
+                model.method, 
+                model.desc || model.description,
+                method.args,
+            );
         }
         else {
-            delete model.methods;
+            delete model.method;
         }
-        if (model.classes) {
+        /**
+         * @class
+         */
+        if (model.class) {
 
         }
         else {
-            delete model.classes;
+            delete model.class;
         }
-        if (model.namespaces) {
+        /**
+         * @namespace
+         */
+        if (model.namespace) {
             // txtUpdated = replaceNamespace(txtUpdated, txtComment, model.namespaces);
         }
         else {
-            delete model.namespaces;
+            delete model.namespace;
+        }
+        /**
+         * @findTry
+         */
+        if(model.try){
+            txtUpdated = replaceTry(txtUpdated, txtComment, model.try);
+        }
+        else{
+            delete model.try;
+        }
+        /**
+         * @catch
+         */
+        if(model.catch){
+            txtUpdated = replaceCatch(txtUpdated, txtComment, model.catch);
+        }
+        else{
+            delete model.catch;
+        }
+        /**
+         * @returns
+         */
+        if(model.returns){
+            txtUpdated = replaceReturns(txtUpdated, txtComment, model.returns);
+        }
+        else{
+            delete model.returns;
+        }
+        /**
+         * @args
+         */
+        if(model.findArgs){
+            txtUpdated = replaceArgs(txtUpdated, txtComment, model.args);
+        }
+        else{
+            delete model.args;
+        }
+        /**
+         * @for
+         */
+        if(model.for){
+            txtUpdated = replaceFor(txtUpdated, txtComment, model.for);
+        }
+        else{
+            delete model.for;
+        }
+        /**
+         * @forEach
+         */
+        if(model.forEach){
+            txtUpdated = replaceForEach(txtUpdated, txtComment, model.forEach);
+        }
+        else{
+            delete model.forEach;
+        }
+        /**
+         * @map
+         */
+        if(model.map){
+            txtUpdated = replaceMap(txtUpdated, txtComment, model.map);
+        }
+        else{
+            delete model.map;
+        }
+        /**
+         * @forData
+         */
+        if(model.forData){
+            txtUpdated = replaceForData(txtUpdated, txtComment, model.forData);
+        }
+        else{
+            delete model.forData;
         }
 
+        /**
+         * @constant isValid - check if all the model tags are false
+         */
         const isValid = !!Object.values(model).find(m => m !== false);
 
         return isValid ? model : false;
