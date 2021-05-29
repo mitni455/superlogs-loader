@@ -28,6 +28,7 @@ const {
     replaceTry,
     replaceCatch,
     replaceReturns,
+    replaceDone,
     replaceFor,
     replaceForEach,
     replaceMap,
@@ -65,6 +66,7 @@ const {
     findThen,
     findCatch,
     findReturns,
+    findDone,
     findArgs,
     findFor,
     findForEach,
@@ -159,6 +161,7 @@ function findAllCommentModels(txtToParse) {
         model.then = findThen(txtComment);
         model.catch = findCatch(txtComment);
         model.returns = findReturns(txtComment);
+        model.done = findDone(txtComment);
         model.args = findArgs(txtComment);
         model.for = findFor(txtComment);
         model.forEach = findForEach(txtComment);
@@ -419,6 +422,15 @@ function findAllCommentModels(txtToParse) {
         }
         else{
             delete model.returns;
+        }
+        /**
+         * @done
+         */
+        if(model.done){
+            txtUpdated = replaceDone(txtUpdated, txtComment, model.done);
+        }
+        else{
+            delete model.done;
         }
         /**
          * @args

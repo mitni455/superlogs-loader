@@ -28,6 +28,7 @@
     replaceFor,
     replaceForEach,
     replaceMap,
+    replaceDone,
 } = require('./replaceComments');
 
 /**
@@ -69,6 +70,7 @@ const {
     findTry,
     findCatch,
     findReturns,
+    findDone,
     findArgs,
     findFor,
     findForEach,
@@ -104,6 +106,7 @@ module.exports = {
     replaceThen,
     replaceCatch,
     replaceReturns,
+    replaceDone,
     replaceFor,
     replaceForEach,
     replaceMap,
@@ -138,11 +141,13 @@ module.exports = {
     findTry,
     findCatch,
     findReturns,
+    findDone,
     findArgs,
     findFor,
     findForEach,
     findMap,
     findForData,
+    findPayload,
 
     /**
      * @requires findAllCommentModels

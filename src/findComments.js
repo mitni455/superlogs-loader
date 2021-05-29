@@ -67,6 +67,7 @@ const findTry = txt => findDocComment(txt, 'try');
 const findThen = txt => findDocComment(txt, 'then');
 const findCatch = txt => findDocComment(txt, 'catch');
 const findReturns = txt => findDocComment(txt, 'returns');
+const findDone = txt => findDocComment(txt, 'done');
 const findArgs = txt => findDocComment(txt, 'args');
 const findFor = txt => findDocComment(txt, 'for');
 const findForEach = txt => findDocComment(txt, 'forEach');
@@ -106,6 +107,7 @@ module.exports = {
     findThen,
     findCatch,
     findReturns,
+    findDone,
     findArgs,
     findFor,
     findForEach,

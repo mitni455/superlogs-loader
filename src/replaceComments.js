@@ -385,6 +385,20 @@ function replaceReturns(txtToUpdate, txtDocComment, payload){
         txtLog
     );
 }
+/**
+ * @see addDone(payload)
+ */
+function replaceDone(txtToUpdate, txtDocComment, payload){
+    if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
+    if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
+
+    let txtLog = `logs.addDone(${payload});\n`;
+
+    return txtToUpdate.replace(
+        txtDocComment,
+        txtLog
+    );
+}
 
 /**
  * @see addFor(description, debugData)
@@ -476,4 +490,5 @@ module.exports = {
     replaceFor,
     replaceForEach,
     replaceMap,
+    replaceDone,
 };
