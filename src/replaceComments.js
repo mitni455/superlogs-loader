@@ -374,11 +374,11 @@ function replaceCatch(txtToUpdate, txtDocComment, description, catchPayload){
 /**
  * @see addReturns(payload)
  */
-function replaceReturns(txtToUpdate, txtDocComment, catchPayload){
+function replaceReturns(txtToUpdate, txtDocComment, payload){
     if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
     if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
 
-    let txtLog = `logs.addReturns('${description}', ${catchPayload});\n`;
+    let txtLog = `logs.addReturns(${payload});\n`;
 
     return txtToUpdate.replace(
         txtDocComment,

@@ -1,4 +1,10 @@
 /**
+ * @requires files 
+ */
+const fs = require('fs');
+const path = require('path');
+
+/**
  * @requires findAllCommentModels
  */
  const {
@@ -29,3 +35,24 @@ test('#findAllCommentModels should be updated', () => {
     expect(txtUpdated.trim()).toEqual(txtFileUpdated.trim());
     // console.log(txtFileUpdated.trim());
 });
+
+/**
+ * @test file storage 
+ */
+test('file-storage.actions.ts', ()=>{
+    /**
+     * @arrange
+     */
+    const files = {
+        'file-storage.actions.ts': fs.readFileSync(path.resolve(__dirname, './mocks/file-storage.actions.ts'), 'utf8'),
+        'file-storage.actions.converted.ts': fs.readFileSync(path.resolve(__dirname, './mocks/file-storage.actions.ts'), 'utf8'),
+    };
+    /**
+     * @act 
+     */
+    const {txtUpdated} = findAllCommentModels(files['file-storage.actions.ts']);
+    /**
+     * @assert
+     */
+    expect(txtUpdated.trim()).toEqual('');
+})
