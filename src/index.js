@@ -103,11 +103,9 @@ module.exports = {
     replaceThen,
     replaceCatch,
     replaceReturns,
-    replaceArgs,
     replaceFor,
     replaceForEach,
     replaceMap,
-    replaceForData,
 
     /**
      * @requires findComments

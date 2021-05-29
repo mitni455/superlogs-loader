@@ -28,11 +28,9 @@ const {
     replaceTry,
     replaceCatch,
     replaceReturns,
-    replaceArgs,
     replaceFor,
     replaceForEach,
     replaceMap,
-    replaceForData,
 } = require('./replaceComments');
 
 /**
