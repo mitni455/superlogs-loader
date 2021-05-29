@@ -415,7 +415,7 @@ function findAllCommentModels(txtToParse) {
          * @returns
          */
         if(model.returns){
-            txtUpdated = replaceReturns(txtUpdated, txtComment, model.returns);
+            // txtUpdated = replaceReturns(txtUpdated, txtComment, model.returns);
         }
         else{
             delete model.returns;

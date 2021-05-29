@@ -44,8 +44,8 @@ test('file-storage.actions.ts', ()=>{
      * @arrange
      */
     const files = {
-        'file-storage.actions.ts': fs.readFileSync(path.resolve(__dirname, './mocks/file-storage.actions.ts'), 'utf8'),
-        'file-storage.actions.converted.ts': fs.readFileSync(path.resolve(__dirname, './mocks/file-storage.actions.ts'), 'utf8'),
+        'file-storage.actions.ts': fs.readFileSync(path.resolve(__dirname, './mocks/file-storage.actions.txt'), 'utf8'),
+        'file-storage.actions.converted.ts': fs.readFileSync(path.resolve(__dirname, './mocks/file-storage.actions.txt'), 'utf8'),
     };
     /**
      * @act 
