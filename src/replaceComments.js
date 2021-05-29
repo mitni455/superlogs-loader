@@ -73,6 +73,11 @@ function replaceMethod(txtToUpdate, txtDocComment, methodName, methodDesc, metho
         txtLog = `logs.addMethod('${methodName}');\n`;
     }
 
+    /**
+     * @step add default step 
+     */
+     txtLog = `logs.addStep('${methodDesc || methodName}');\n`;
+
     return txtToUpdate.replace(
         txtDocComment,
         txtLog
