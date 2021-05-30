@@ -7,6 +7,7 @@ const { findAllCommentModels } = require('./src');
  * @requires WebPack
  */
 const utils = require('loader-utils');
+const { catch } = require('./src/regexComments');
 
 /**
  * 
@@ -29,13 +30,19 @@ function performTransform(filePath, txtFileOriginal, options) {
 }
 
 function findFileNamespace(filePath) {
-  const pathSplit = filePath.split('/');
-  const fileName = pathSplit[pathSplit.length - 1];
-  let fileSplit = fileName.split('.');
-  fileSplit.pop();
-  fileSplit = fileSplit.map(file => capitalize(file));
-  const namespace = fileSplit.join('');
-  return {fileName, namespace};
+  try{
+    const pathSplit = filePath.split('/');
+    const fileName = pathSplit[pathSplit.length - 1];
+    let fileSplit = fileName.split('.');
+    fileSplit.pop();
+    fileSplit = fileSplit.map(file => capitalize(file));
+    const namespace = fileSplit.join('');
+    return {fileName, namespace};
+  }
+  catch(err){
+    console.error('findFileNamespace failed', err.message);
+    return {fileName:filePath, namespace:filePath};
+  }
 }
 function capitalize(str) {
   var firstLetter = str.substr(0, 1);
