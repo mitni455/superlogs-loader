@@ -10,20 +10,20 @@ const utils = require('loader-utils');
 
 /**
  * 
- * @param {string} fileName - file name
+ * @param {string} filePath - full path to file name
  * @param {string} txtFileOriginal - source text file
  * @param {Options} options - options 
  * @returns {string} txtFileUpdated - transformed text file
  */
-function performTransform(fileName, txtFileOriginal, options) {
+function performTransform(filePath, txtFileOriginal, options) {
   const {
     txtUpdated,
     models,
   } = findAllCommentModels(txtFileOriginal);
 
-  const namespace = findFileNamespace(fileName);
-  console.log(namespace, fileName);
-  const header = `import {logger as superlogs} from 'superlogs';\nconst logs = superlogs('${namespace}')\n\n`;
+  const {namespace, fileName} = findFileNamespace(filePath);
+  console.log(`building ${fileName}`, {filePath, namespace});
+  const header = `import {logger as superlogs} from 'superlogs';\nconst logs = superlogs('${fileName}')\n\n`;
 
   return header + txtUpdated;
 }
@@ -35,7 +35,7 @@ function findFileNamespace(filePath) {
   fileSplit.pop();
   fileSplit = fileSplit.map(file => capitalize(file));
   const namespace = fileSplit.join('');
-  return namespace;
+  return {fileName, namespace};
 }
 function capitalize(str) {
   var firstLetter = str.substr(0, 1);
