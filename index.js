@@ -7,7 +7,6 @@ const { findAllCommentModels } = require('./src');
  * @requires WebPack
  */
 const utils = require('loader-utils');
-const { catch } = require('./src/regexComments');
 
 /**
  * 
