@@ -21,10 +21,25 @@ function performTransform(fileName, txtFileOriginal, options) {
     models,
   } = findAllCommentModels(txtFileOriginal);
 
-  console.log(fileName, {txtUpdated});
-  const header = `import {logger as superlogs} from 'superlogs';\nconst logs = superlogs('${fileName}')\n\n`;
+  const namespace = findFileNamespace(fileName);
+  console.log(namespace, fileName);
+  const header = `import {logger as superlogs} from 'superlogs';\nconst logs = superlogs('${namespace}')\n\n`;
 
   return header + txtUpdated;
+}
+
+function findFileNamespace(filePath) {
+  const pathSplit = filePath.split('/');
+  const fileName = pathSplit[pathSplit.length - 1];
+  let fileSplit = fileName.split('.');
+  fileSplit.pop();
+  fileSplit = fileSplit.map(file => capitalize(file));
+  const namespace = fileSplit.join('');
+  return namespace;
+}
+function capitalize(str) {
+  var firstLetter = str.substr(0, 1);
+  return firstLetter.toUpperCase() + str.substr(1);
 }
 
 /**
@@ -40,7 +55,7 @@ module.exports = function (txtFileOriginal) {
   /**
    * @const {string} fileName - file name 
    */
-  const fileName = this._module.resource;
+  const fileName = findFileNamespace(this._module.resource);
 
   /**
    * @step Get Options
