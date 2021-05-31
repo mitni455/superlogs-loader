@@ -86,6 +86,9 @@ function replaceMethod(txtToUpdate, txtDocComment, methodName, methodDesc, metho
     else if(!methodDesc && methodArgs){
         txtLog = `logs.addMethod(\`${methodName}\`, '', ${replaceMethodArgs(methodArgs)});\n`;
     }
+    else if(methodDesc && !methodArgs){
+        txtLog = `logs.addMethod(\`${methodName}\`, \`${methodDesc}\`);\n`;
+    }
     else{
         txtLog = `logs.addMethod(\`${methodName}\`);\n`;
     }
