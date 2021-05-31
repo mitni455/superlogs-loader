@@ -15,15 +15,14 @@ const utils = require('loader-utils');
  * @param {Options} options - options 
  * @returns {string} txtFileUpdated - transformed text file
  */
-function performTransform(filePath, txtFileOriginal, options) {
+function performTransform({fileName, namespace}, txtFileOriginal, options) {
   const {
     txtUpdated,
     models,
   } = findAllCommentModels(txtFileOriginal);
 
-  const {namespace, fileName} = findFileNamespace(filePath);
   console.log(`building ${fileName}`, {filePath, namespace});
-  const header = `import {logger as superlogs} from 'superlogs';\nconst logs = superlogs('${fileName}')\n\n`;
+  const header = `import {logger as superlogs} from 'superlogs';\nconst logs = superlogs('${namespace}')\n\n`;
 
   return header + txtUpdated;
 }
