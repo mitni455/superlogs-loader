@@ -366,7 +366,7 @@ function findAllCommentModels(txtToParse) {
                 txtUpdated, 
                 txtComment, 
                 model.method, 
-                model.desc || model.description || false,
+                model.desc || model.description || model.method,
                 model.args || false,
             );
         }
