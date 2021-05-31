@@ -8,6 +8,12 @@ const { findAllCommentModels } = require('./src');
  */
 const utils = require('loader-utils');
 
+function printFileHeader(namespace) {
+  let txtHeader = `import {logger as superlogs} from 'superlogs';\n`
+      txtHeader = `const logs = superlogs('${namespace}')\n\n`;
+  return txtHeader;
+}
+
 /**
  * 
  * @param {string} filePath - full path to file name
@@ -22,7 +28,7 @@ function performTransform({fileName, namespace}, txtFileOriginal, options) {
   } = findAllCommentModels(txtFileOriginal);
 
   console.log(`building ${fileName}`, {fileName, namespace});
-  const header = `import {logger as superlogs} from 'superlogs';\nconst logs = superlogs('${namespace}')\n\n`;
+  const header = printFileHeader(namespace);
 
   return header + txtUpdated;
 }
@@ -31,7 +37,7 @@ function findFileNamespace(filePath) {
   try{
     const pathSplit = filePath.split('/');
     const fileName = pathSplit[pathSplit.length - 1];
-    let fileSplit = fileName.split('.');
+    let fileSplit = fileName.replace(new RegExp('-', 'g'),'.').split('.');
     fileSplit.pop();
     fileSplit = fileSplit.map(file => capitalize(file));
     const namespace = fileSplit.join('');
