@@ -61,7 +61,8 @@ function replaceMethodArgs(argsAsCommaSeperatedList) {
     try{
         let args = argsAsCommaSeperatedList.split(',');
         args = args.map(arg => {
-            return `'${arg}': ${arg}`; 
+            const key = arg.trim();
+            return `'${key}': ${key}`; 
         }).join(',');
         return `{ ${args} }`;
     }
