@@ -19,6 +19,7 @@ function debug(fileName, filePath, txtFileOriginal) {
     // const fileContents = fs.readFileSync(filePath, 'utf8');
     const { txtUpdated } = findAllCommentModels(txtFileOriginal);
     fs.writeFileSync(filePath+'.debug', txtUpdated, 'utf8');
+    console.log(`Debug for file: ${filePath+'.debug'}`, txtUpdated);
   }
 }
 
