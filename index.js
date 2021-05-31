@@ -21,7 +21,7 @@ function performTransform({fileName, namespace}, txtFileOriginal, options) {
     models,
   } = findAllCommentModels(txtFileOriginal);
 
-  console.log(`building ${fileName}`, {filePath, namespace});
+  console.log(`building ${fileName}`, {fileName, namespace});
   const header = `import {logger as superlogs} from 'superlogs';\nconst logs = superlogs('${namespace}')\n\n`;
 
   return header + txtUpdated;
