@@ -4,7 +4,7 @@ const _replaceComment = (txtToUpdate, txtDocComment, description, txtMetaAdd) =>
     
     return txtToUpdate.replace(
         txtDocComment,
-        `logs.${txtMetaAdd}('${description}');\n`
+        `log.${txtMetaAdd}('${description}');\n`
     );
 }
 
@@ -81,22 +81,22 @@ function replaceMethod(txtToUpdate, txtDocComment, methodName, methodDesc, metho
 
     let txtLog;
     if(methodDesc && methodArgs){
-        txtLog = `logs.addMethod(\`${methodName}\`, '${methodDesc}', ${replaceMethodArgs(methodArgs)});\n`;
+        txtLog = `const log = logs.addMethod(\`${methodName}\`, '${methodDesc}', ${replaceMethodArgs(methodArgs)});\n`;
     }
     else if(!methodDesc && methodArgs){
-        txtLog = `logs.addMethod(\`${methodName}\`, '', ${replaceMethodArgs(methodArgs)});\n`;
+        txtLog = `const log = logs.addMethod(\`${methodName}\`, '', ${replaceMethodArgs(methodArgs)});\n`;
     }
     else if(methodDesc && !methodArgs){
-        txtLog = `logs.addMethod(\`${methodName}\`, \`${methodDesc}\`);\n`;
+        txtLog = `const log = logs.addMethod(\`${methodName}\`, \`${methodDesc}\`);\n`;
     }
     else{
-        txtLog = `logs.addMethod(\`${methodName}\`);\n`;
+        txtLog = `const log = logs.addMethod(\`${methodName}\`);\n`;
     }
 
     /**
      * @step add default step 
      */
-     txtLog += `logs.addStep(\`${methodDesc || methodName}\`);\n`;
+     txtLog += `log.addStep(\`${methodDesc || methodName}\`);\n`;
 
     return txtToUpdate.replace(
         txtDocComment,
@@ -111,7 +111,7 @@ function replaceStep(txtToUpdate, txtDocComment, description){
     if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
     if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
 
-    let txtLog = `logs.addStep(\`${description}\`);\n`;
+    let txtLog = `log.addStep(\`${description}\`);\n`;
 
     return txtToUpdate.replace(
         txtDocComment,
@@ -129,13 +129,13 @@ function replaceGoto(txtToUpdate, txtDocComment, method, namespace, isReturn){
     
     let txtLogs;
     if(isReturn !== undefined){
-        txtLogs = `logs.addGoto('${method}', '${namespace || ''}', ${isReturn});\n`;
+        txtLogs = `log.addGoto('${method}', '${namespace || ''}', ${isReturn});\n`;
     }
     else if(method && namespace){
-        txtLogs = `logs.addGoto('${method}', '${namespace}');\n`;
+        txtLogs = `log.addGoto('${method}', '${namespace}');\n`;
     }
     else{
-        txtLogs = `logs.addGoto('${method}');\n`;
+        txtLogs = `log.addGoto('${method}');\n`;
     }
     return txtToUpdate.replace(
         txtDocComment,
@@ -160,16 +160,16 @@ function replaceFetch(
 
     let txtLog;
     if(body && headers){
-        txtLog = `logs.addFetch('${description}', '${url}', ${body}, ${headers});\n`
+        txtLog = `log.addFetch('${description}', '${url}', ${body}, ${headers});\n`
     }
     else if(body){
-        txtLog = `logs.addFetch('${description}', '${url}', ${body});\n`
+        txtLog = `log.addFetch('${description}', '${url}', ${body});\n`
     }
     else if(headers){
-        txtLog = `logs.addFetch('${description}', '${url}', ${headers});\n`
+        txtLog = `log.addFetch('${description}', '${url}', ${headers});\n`
     }
     else{
-        txtLog = `logs.addFetch('${description}', '${url}');\n`
+        txtLog = `log.addFetch('${description}', '${url}');\n`
     }
 
     return txtToUpdate.replace(
@@ -198,13 +198,13 @@ function replaceEvent(txtToUpdate, txtDocComment, key, val, channel){
 
     let txtLog;
     if(channel && val){
-        txtLog = `logs.addEvent('${key}', ${val}, ${channel});\n`;
+        txtLog = `log.addEvent('${key}', ${val}, ${channel});\n`;
     }
     else if(!channel && val){
-        txtLog = `logs.addEvent('${key}', ${val});\n`;
+        txtLog = `log.addEvent('${key}', ${val});\n`;
     }
     else{
-        txtLog = `logs.addEvent('${key}');\n`;
+        txtLog = `log.addEvent('${key}');\n`;
     }
 
     return txtToUpdate.replace(
@@ -223,16 +223,16 @@ function replaceDispatch(txtToUpdate, txtDocComment, actionType, actionPayload, 
     
     let txtLog;
     if(actionPayload && actionLifecycle){
-        txtLog = `logs.addDispatch('${actionType}', ${actionPayload}, ${actionLifecycle});\n`;
+        txtLog = `log.addDispatch('${actionType}', ${actionPayload}, ${actionLifecycle});\n`;
     }
     else if(!actionPayload && actionLifecycle){
-        txtLog = `logs.addDispatch('${actionType}', false, ${actionLifecycle});\n`;
+        txtLog = `log.addDispatch('${actionType}', false, ${actionLifecycle});\n`;
     }
     else if(actionPayload){
-        txtLog = `logs.addDispatch('${actionType}', ${actionPayload});\n`;
+        txtLog = `log.addDispatch('${actionType}', ${actionPayload});\n`;
     }
     else{
-        txtLog = `logs.addDispatch('${actionType}');\n`;
+        txtLog = `log.addDispatch('${actionType}');\n`;
     }
 
     return txtToUpdate.replace(
@@ -251,10 +251,10 @@ function replaceLoop(txtToUpdate, txtDocComment, description, debugData, loopTyp
 
     let txtLog;
     if(debugData){
-        txtLog = `logs.addLoop('${description}', ${debugData}, ${loopType || 'for'});\n`;
+        txtLog = `log.addLoop('${description}', ${debugData}, ${loopType || 'for'});\n`;
     }
     else{
-        txtLog = `logs.addLoop('${description}');\n`;
+        txtLog = `log.addLoop('${description}');\n`;
     }
 
     return txtToUpdate.replace(
@@ -272,10 +272,10 @@ function replaceThrow(txtToUpdate, txtDocComment, error, optionalDescription){
     
     let txtLog;
     if(optionalDescription){
-        txtLog = `logs.addThrow(${error}, '${optionalDescription}');\n`;
+        txtLog = `log.addThrow(${error}, '${optionalDescription}');\n`;
     }
     else{
-        txtLog = `logs.addThrow(${error});\n`;
+        txtLog = `log.addThrow(${error});\n`;
     }
 
     return txtToUpdate.replace(
@@ -292,10 +292,10 @@ function replaceError(txtToUpdate, txtDocComment, error, optionalDescription){
 
     let txtLog;
     if(optionalDescription){
-        txtLog = `logs.addError(${error}, '${optionalDescription}');\n`;
+        txtLog = `log.addError(${error}, '${optionalDescription}');\n`;
     }
     else{
-        txtLog = `logs.addError(${error});\n`;
+        txtLog = `log.addError(${error});\n`;
     }
 
     return txtToUpdate.replace(
@@ -313,10 +313,10 @@ function replaceData(txtToUpdate, txtDocComment, keyOrJson, val){
     
     let txtLog;
     if(val){
-        txtLog = `logs.addData('${keyOrJson}', ${val});\n`
+        txtLog = `log.addData('${keyOrJson}', ${val});\n`
     }
     else{
-        txtLog = `logs.addData({ '${keyOrJson}': ${keyOrJson} });\n`
+        txtLog = `log.addData({ '${keyOrJson}': ${keyOrJson} });\n`
     }
 
     return txtToUpdate.replace(
@@ -334,10 +334,10 @@ function replaceSuccess(txtToUpdate, txtDocComment, keyOrJson, val){
     
     let txtLog;
     if(val){
-        txtLog = `logs.addSuccess('${keyOrJson}', ${val});\n`
+        txtLog = `log.addSuccess('${keyOrJson}', ${val});\n`
     }
     else{
-        txtLog = `logs.addSuccess({ '${keyOrJson}': ${keyOrJson} });\n`
+        txtLog = `log.addSuccess({ '${keyOrJson}': ${keyOrJson} });\n`
     }
 
     return txtToUpdate.replace(
@@ -355,10 +355,10 @@ function replaceFailed(txtToUpdate, txtDocComment, keyOrJson, val){
     
     let txtLog;
     if(val){
-        txtLog = `logs.addFailed('${keyOrJson}', ${val});\n`
+        txtLog = `log.addFailed('${keyOrJson}', ${val});\n`
     }
     else{
-        txtLog = `logs.addFailed({ '${keyOrJson}': ${keyOrJson} });\n`
+        txtLog = `log.addFailed({ '${keyOrJson}': ${keyOrJson} });\n`
     }
 
     return txtToUpdate.replace(
@@ -375,7 +375,7 @@ function replaceFailed(txtToUpdate, txtDocComment, keyOrJson, val){
     if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
     if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
 
-    let txtLog = `logs.addTry('${description}');\n`;
+    let txtLog = `log.addTry('${description}');\n`;
 
     return txtToUpdate.replace(
         txtDocComment,
@@ -389,7 +389,7 @@ function replaceThen(txtToUpdate, txtDocComment, description, payload){
     if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
     if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
 
-    let txtLog = `logs.addThen('${description}', ${payload});\n`;
+    let txtLog = `log.addThen('${description}', ${payload});\n`;
 
     return txtToUpdate.replace(
         txtDocComment,
@@ -405,10 +405,10 @@ function replaceCatch(txtToUpdate, txtDocComment, description, catchPayload){
 
     let txtLog;
     if(catchPayload){
-        txtLog = `logs.addCatch('${description}', ${catchPayload});\n`;
+        txtLog = `log.addCatch('${description}', ${catchPayload});\n`;
     }
     else{
-        txtLog = `logs.addCatch('${description}');\n`;
+        txtLog = `log.addCatch('${description}');\n`;
     }
 
     return txtToUpdate.replace(
@@ -423,7 +423,7 @@ function replaceReturns(txtToUpdate, txtDocComment, payload){
     if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
     if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
 
-    let txtLog = `logs.addReturns(${payload});\n`;
+    let txtLog = `log.addReturns(${payload});\n`;
 
     return txtToUpdate.replace(
         txtDocComment,
@@ -437,7 +437,7 @@ function replaceDone(txtToUpdate, txtDocComment, payload){
     if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
     if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
 
-    let txtLog = `logs.addDone(${payload});\n`;
+    let txtLog = `log.addDone(${payload});\n`;
 
     return txtToUpdate.replace(
         txtDocComment,
@@ -454,10 +454,10 @@ function replaceDone(txtToUpdate, txtDocComment, payload){
 
     let txtLog;
     if(debugData){
-        txtLog = `logs.addFor('${description}', ${debugData});\n`;
+        txtLog = `log.addFor('${description}', ${debugData});\n`;
     }
     else{
-        txtLog = `logs.addFor('${description}');\n`;
+        txtLog = `log.addFor('${description}');\n`;
     }
 
     return txtToUpdate.replace(
@@ -475,10 +475,10 @@ function replaceForEach(txtToUpdate, txtDocComment, description, debugData){
 
     let txtLog;
     if(debugData){
-        txtLog = `logs.addForeach('${description}', ${debugData});\n`;
+        txtLog = `log.addForeach('${description}', ${debugData});\n`;
     }
     else{
-        txtLog = `logs.addForeach('${description}');\n`;
+        txtLog = `log.addForeach('${description}');\n`;
     }
 
     return txtToUpdate.replace(
@@ -496,10 +496,10 @@ function replaceMap(txtToUpdate, txtDocComment, description, debugData){
 
     let txtLog;
     if(debugData){
-        txtLog = `logs.addMap('${description}', ${debugData});\n`;
+        txtLog = `log.addMap('${description}', ${debugData});\n`;
     }
     else{
-        txtLog = `logs.addMap('${description}');\n`;
+        txtLog = `log.addMap('${description}');\n`;
     }
 
     return txtToUpdate.replace(
