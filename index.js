@@ -42,7 +42,7 @@ function findFileNamespace(filePath) {
     let fileSplit = fileName.replace(new RegExp('-', 'g'),'.').split('.');
     fileSplit.pop();
     fileSplit = fileSplit.map(file => capitalize(file));
-    const namespace = fileSplit.join('');
+    const namespace = fileSplit.join('') === "''" ? fileName: fileSplit.join('');
     return {fileName, namespace};
   }
   catch(err){
