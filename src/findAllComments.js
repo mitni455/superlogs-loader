@@ -175,7 +175,7 @@ function findAllCommentModels(txtToParse) {
          * @if
          */
         if (model.if) {
-            txtUpdated = replaceIf(txtUpdated, txtComment, model.if);
+            txtUpdated = replaceIf(txtUpdated, txtComment, model.if, model.payload || false);
         }
         else {
             delete model.if;
@@ -184,7 +184,7 @@ function findAllCommentModels(txtToParse) {
          * @elseif
          */
         if (model.elseIf) {
-            txtUpdated = replaceElseIf(txtUpdated, txtComment, model.elseIf);
+            txtUpdated = replaceElseIf(txtUpdated, txtComment, model.elseIf, model.payload || false);
 
         }
         else {
@@ -194,7 +194,7 @@ function findAllCommentModels(txtToParse) {
          * @else
          */
         if (model.else) {
-            txtUpdated = replaceElse(txtUpdated, txtComment, model.else);
+            txtUpdated = replaceElse(txtUpdated, txtComment, model.else, model.payload || false);
 
         }
         else {
