@@ -28,7 +28,7 @@
     namespace: /^.*@namespace\s+([^\n]*).*$/sgi,
     try: /^.*@try\s+([^\n]*).*$/sgi,
     then: /^.*@then\s+([^\n]*).*$/sgi,
-    catch: /^.*@catch\s+([^\n]*).*$/sgi,
+    regexCatch: /^.*@catch\s+([^\n]*).*$/sgi,
     returns: /^.*@returns\s+([^\n]*).*$/sgi,
     done: /^.*@done\s+([^\n]*).*$/sgi,
     args: /^.*@args\s+([^\n]*).*$/sgi,

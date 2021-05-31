@@ -18,6 +18,7 @@ const path = require('path');
 const {
     txtFileOriginal,
     txtFileUpdated,
+    getFileContents,
 } = require('./mocks');
 
 /**
@@ -33,7 +34,6 @@ test('adds 1 + 2 to equal 3', () => {
 test('#findAllCommentModels should be updated', () => {
     const {txtUpdated} = findAllCommentModels(txtFileOriginal);
     expect(txtUpdated.trim()).toEqual(txtFileUpdated.trim());
-    // console.log(txtFileUpdated.trim());
 });
 
 /**
@@ -44,8 +44,8 @@ test('file-storage.actions.ts', ()=>{
      * @arrange
      */
     const files = {
-        'file-storage.actions.ts': fs.readFileSync(path.resolve(__dirname, './mocks/file-storage.actions.txt'), 'utf8'),
-        'file-storage.actions.converted.ts': fs.readFileSync(path.resolve(__dirname, './mocks/file-storage.actions.txt'), 'utf8'),
+        'file-storage.actions.ts': getFileContents('file-storage.actions.txt'),
+        'file-storage.actions.converted.ts': getFileContents('file-storage.actions.converted.txt'),
     };
     /**
      * @act 

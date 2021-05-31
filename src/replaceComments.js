@@ -369,7 +369,13 @@ function replaceCatch(txtToUpdate, txtDocComment, description, catchPayload){
     if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
     if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
 
-    let txtLog = `logs.addCatch('${description}', ${catchPayload});\n`;
+    let txtLog;
+    if(catchPayload){
+        txtLog = `logs.addCatch('${description}', ${catchPayload});\n`;
+    }
+    else{
+        txtLog = `logs.addCatch('${description}');\n`;
+    }
 
     return txtToUpdate.replace(
         txtDocComment,

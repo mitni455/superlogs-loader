@@ -1,9 +1,4 @@
 /**
- * @requires regexComments
- */
-const regexComments = require('./regexComments');
-
-/**
  * @requires replaceComments
  */
 const {

@@ -1,6 +1,6 @@
 /**
  * @requires replaceComments
- */
+ *
  const {
     // replaceComment,
     replaceCheck,
@@ -30,6 +30,7 @@
     replaceMap,
     replaceDone,
 } = require('./replaceComments');
+*/
 
 /**
  * @requires findAllCommentModels
@@ -41,7 +42,7 @@ const {
 
 /**
  * @exports findComments
- */
+ *
 const {
     findIfComment,
     findElseIfComment,
@@ -78,12 +79,12 @@ const {
     findForData,
     findPayload,
 } = require('./findComments');
+*/
 
 module.exports = {
     /**
      * @requires replaceComments
-     */
-    // replaceComment,
+     *
     replaceCheck,
     replaceIf,
     replaceElseIf,
@@ -113,7 +114,7 @@ module.exports = {
 
     /**
      * @requires findComments
-     */
+     *
     findIfComment,
     findElseIfComment,
     findElseComment,
