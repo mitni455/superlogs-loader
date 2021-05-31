@@ -81,19 +81,19 @@ function replaceMethod(txtToUpdate, txtDocComment, methodName, methodDesc, metho
 
     let txtLog;
     if(methodDesc && methodArgs){
-        txtLog = `logs.addMethod('${methodName}', '${methodDesc}', ${replaceMethodArgs(methodArgs)});\n`;
+        txtLog = `logs.addMethod(\`${methodName}\`, '${methodDesc}', ${replaceMethodArgs(methodArgs)});\n`;
     }
     else if(!methodDesc && methodArgs){
-        txtLog = `logs.addMethod('${methodName}', '', ${replaceMethodArgs(methodArgs)});\n`;
+        txtLog = `logs.addMethod(\`${methodName}\`, '', ${replaceMethodArgs(methodArgs)});\n`;
     }
     else{
-        txtLog = `logs.addMethod('${methodName}');\n`;
+        txtLog = `logs.addMethod(\`${methodName}\`);\n`;
     }
 
     /**
      * @step add default step 
      */
-     txtLog += `logs.addStep('${methodDesc || methodName}');\n`;
+     txtLog += `logs.addStep(\`${methodDesc || methodName}\`);\n`;
 
     return txtToUpdate.replace(
         txtDocComment,
@@ -108,7 +108,7 @@ function replaceStep(txtToUpdate, txtDocComment, description){
     if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
     if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
 
-    let txtLog = `logs.addStep('${description}');\n`;
+    let txtLog = `logs.addStep(\`${description}\`);\n`;
 
     return txtToUpdate.replace(
         txtDocComment,
@@ -143,7 +143,14 @@ function replaceGoto(txtToUpdate, txtDocComment, method, namespace, isReturn){
 /**
  * @see addFetch(method, url, body, headers)
  */
-function replaceFetch(txtToUpdate, txtDocComment, description, url, body, headers){
+function replaceFetch(
+    txtToUpdate, 
+    txtDocComment, 
+    description, 
+    url, 
+    body, 
+    headers
+){
     if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
     if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
     if(!url) throw new Error(`You must provide a URL for the fetch. @url: ${url}`);
@@ -214,6 +221,9 @@ function replaceDispatch(txtToUpdate, txtDocComment, actionType, actionPayload, 
     let txtLog;
     if(actionPayload && actionLifecycle){
         txtLog = `logs.addDispatch('${actionType}', ${actionPayload}, ${actionLifecycle});\n`;
+    }
+    else if(!actionPayload && actionLifecycle){
+        txtLog = `logs.addDispatch('${actionType}', false, ${actionLifecycle});\n`;
     }
     else if(actionPayload){
         txtLog = `logs.addDispatch('${actionType}', ${actionPayload});\n`;
