@@ -1,6 +1,6 @@
 {
   "name": "superlogs-loader",
-  "version": "1.5.19",
+  "version": "1.5.20",
   "description": "webpack loader for superlogs",
   "main": "index.js",
   "scripts": {
