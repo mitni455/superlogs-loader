@@ -48,6 +48,7 @@ const findDescriptionComment = txt => findDocComment(txt, 'description');
 const findNoteComment = txt => findDocComment(txt, 'note');
 const findStepComment = txt => findDocComment(txt, 'step');
 const findDataComment = txt => findDocComment(txt, 'data');
+const findStateComment = txt => findDocComment(txt, 'state');
 const findMongoComment = txt => findDocComment(txt, 'mongo');
 const findFetchComment = txt => findDocComment(txt, 'fetch');
 const findUrlComment = txt => findDocComment(txt, 'url');
@@ -115,4 +116,5 @@ module.exports = {
     findMap,
     findForData,
     findPayload,
+    findStateComment,
 };

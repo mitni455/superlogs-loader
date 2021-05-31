@@ -11,6 +11,7 @@
     note: /^.*@note\s+([^\n]*).*$/sgi,
     step: /^.*@step\s+([^\n]*).*$/sgi,
     data: /^.*@data\s+([^\n]*).*$/sgi,
+    state: /^.*@state\s+([^\n]*).*$/sgi,
     success: /^.*@data\s+([^\n]*).*$/sgi,
     failed: /^.*@data\s+([^\n]*).*$/sgi,
     mongo: /^.*@mongo\s+([^\n]*).*$/sgi,

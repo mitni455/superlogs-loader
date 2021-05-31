@@ -206,12 +206,16 @@ function replaceEvent(txtToUpdate, txtDocComment, key, val, channel){
 /**
  * @see addDispatch(actionType, actionPayload)
  */
-function replaceDispatch(txtToUpdate, txtDocComment, actionType, actionPayload){
+function replaceDispatch(txtToUpdate, txtDocComment, actionType, actionPayload, actionLifecycle){
     if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
     if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
+    if(!actionType) throw new Error(`You must provide an @dispath action tyoe. actionType: ${actionType}`);
     
     let txtLog;
-    if(actionPayload){
+    if(actionPayload && actionLifecycle){
+        txtLog = `logs.addDispatch('${actionType}', ${actionPayload}, ${actionLifecycle});\n`;
+    }
+    else if(actionPayload){
         txtLog = `logs.addDispatch('${actionType}', ${actionPayload});\n`;
     }
     else{
