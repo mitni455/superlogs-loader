@@ -27,8 +27,10 @@ function performTransform({fileName, namespace}, txtFileOriginal, options) {
     models,
   } = findAllCommentModels(txtFileOriginal);
 
-  console.log(`building ${fileName}`, {fileName, namespace});
-  const header = printFileHeader(namespace);
+  const updatedNamespace = namespace === '' ? fileName : namespace;
+
+  console.log(`building ${fileName}`, {fileName, updatedNamespace});
+  const header = printFileHeader(updatedNamespace);
 
   return header + txtUpdated;
 }
@@ -42,7 +44,7 @@ function findFileNamespace(filePath) {
     let fileSplit = fileName.replace(new RegExp('-', 'g'),'.').split('.');
     fileSplit.pop();
     fileSplit = fileSplit.map(file => capitalize(file));
-    const namespace = fileSplit.join('') === "''" ? fileName: fileSplit.join('');
+    const namespace = fileSplit.join('') === '' ? fileName: fileSplit.join('');
     return {fileName, namespace};
   }
   catch(err){
