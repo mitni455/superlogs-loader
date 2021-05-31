@@ -60,7 +60,7 @@ module.exports = function (txtFileOriginal) {
   /**
    * @const {string} fileName - file name 
    */
-  const fileName = findFileNamespace(this._module.resource);
+  const fileNamespaceAndFilename = findFileNamespace(this._module.resource);
 
   /**
    * @step Get Options
@@ -74,7 +74,7 @@ module.exports = function (txtFileOriginal) {
   /**
    * @step Transform
    */
-  const txtFileUpdated = performTransform(fileName, txtFileOriginal, options);
+  const txtFileUpdated = performTransform(fileNamespaceAndFilename, txtFileOriginal, options);
 
   return txtFileUpdated;
 }
