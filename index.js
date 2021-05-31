@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 /**
  * @requires findAllCommentModels
  */
@@ -7,6 +10,17 @@ const { findAllCommentModels } = require('./src');
  * @requires WebPack
  */
 const utils = require('loader-utils');
+
+function debug(fileName, filePath, txtFileOriginal) {
+  const filesToDebug = [
+    'filestorage.service'
+  ]
+  if(filesToDebug.find(f => f === fileName)){
+    // const fileContents = fs.readFileSync(filePath, 'utf8');
+    const { txtUpdated } = findAllCommentModels(txtFileOriginal);
+    fs.writeFileSync(filePath+'.debug', txtUpdated, 'utf8');
+  }
+}
 
 function printFileHeader(namespace) {
   let txtHeader = `import {logger as superlogs} from 'superlogs';\n`
@@ -21,7 +35,7 @@ function printFileHeader(namespace) {
  * @param {Options} options - options 
  * @returns {string} txtFileUpdated - transformed text file
  */
-function performTransform({fileName, namespace}, txtFileOriginal, options) {
+function performTransform({fileName, namespace, filePath}, txtFileOriginal, options) {
   const {
     txtUpdated,
     models,
@@ -31,6 +45,8 @@ function performTransform({fileName, namespace}, txtFileOriginal, options) {
 
   console.log(`building ${fileName}`, {fileName, updatedNamespace});
   const header = printFileHeader(updatedNamespace);
+
+  debug(fileName, filePath, txtFileOriginal);
 
   return header + txtUpdated;
 }
@@ -45,11 +61,11 @@ function findFileNamespace(filePath) {
     fileSplit.pop();
     fileSplit = fileSplit.map(file => capitalize(file));
     const namespace = fileSplit.join('') === '' ? fileName: fileSplit.join('');
-    return {fileName, namespace};
+    return {fileName, namespace, filePath};
   }
   catch(err){
     console.error('findFileNamespace failed', err.message);
-    return {fileName:filePath, namespace:filePath};
+    return {fileName:filePath, namespace:filePath, filePath};
   }
 }
 function capitalize(str) {
