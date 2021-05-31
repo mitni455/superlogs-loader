@@ -55,6 +55,22 @@ const replaceNamespace = (txtToUpdate, txtDocComment, description) => _replaceCo
 
 
 /**
+ * 
+ */
+function replaceMethodArgs(argsAsCommaSeperatedList) {
+    try{
+        let args = argsAsCommaSeperatedList.split(',');
+        args = args.map(arg => {
+            return `'${arg}': ${arg}`; 
+        }).join(',');
+        return `{ ${args} }`;
+    }
+    catch(err){
+        return err.message;
+    }
+}
+
+/**
  * @see addMethod(methodName, methodDesc)
  */
 function replaceMethod(txtToUpdate, txtDocComment, methodName, methodDesc, methodArgs){
@@ -64,10 +80,10 @@ function replaceMethod(txtToUpdate, txtDocComment, methodName, methodDesc, metho
 
     let txtLog;
     if(methodDesc && methodArgs){
-        txtLog = `logs.addMethod('${methodName}', '${methodDesc}', ${methodArgs});\n`;
+        txtLog = `logs.addMethod('${methodName}', '${methodDesc}', ${replaceMethodArgs(methodArgs)});\n`;
     }
     else if(!methodDesc && methodArgs){
-        txtLog = `logs.addMethod('${methodName}', '', ${methodArgs});\n`;
+        txtLog = `logs.addMethod('${methodName}', '', ${replaceMethodArgs(methodArgs)});\n`;
     }
     else{
         txtLog = `logs.addMethod('${methodName}');\n`;
