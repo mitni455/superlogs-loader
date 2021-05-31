@@ -10,7 +10,7 @@ const utils = require('loader-utils');
 
 function printFileHeader(namespace) {
   let txtHeader = `import {logger as superlogs} from 'superlogs';\n`
-      txtHeader = `const logs = superlogs('${namespace}')\n\n`;
+      txtHeader += `const logs = superlogs('${namespace}')\n\n`;
   return txtHeader;
 }
 
