@@ -36,7 +36,9 @@ function performTransform({fileName, namespace}, txtFileOriginal, options) {
 function findFileNamespace(filePath) {
   try{
     const pathSplit = filePath.split('/');
-    const fileName = pathSplit[pathSplit.length - 1];
+    const fileName = pathSplit[pathSplit.length - 1] === 'index' ? 
+      pathSplit[pathSplit.length - 2] : 
+      pathSplit[pathSplit.length - 1];
     let fileSplit = fileName.replace(new RegExp('-', 'g'),'.').split('.');
     fileSplit.pop();
     fileSplit = fileSplit.map(file => capitalize(file));
