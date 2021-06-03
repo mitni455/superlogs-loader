@@ -92,6 +92,7 @@ function replaceMethod(txtToUpdate, txtDocComment, methodName, methodDesc, metho
     else{
         txtLog = `const log = logs.addMethod(\`${methodName}\`);\n`;
     }
+    txtLog += `\nconst loggerMethodName = ${methodName};\n`;
 
     /**
      * @step add default step 
@@ -111,7 +112,11 @@ function replaceStep(txtToUpdate, txtDocComment, description){
     if(!txtToUpdate) throw new Error(`You must provide text to update. txtToUpdate: ${txtToUpdate}`);
     if(!txtDocComment) throw new Error(`You must provide doc comment. txtDocComment: ${txtDocComment}`);
 
-    let txtLog = `log.addStep(\`${description}\`);\n`;
+    const stepDesc = description;
+    const stepName = description; 
+    const cat = 'block'; 
+    const optionalMethodName = 'loggerMethodName';
+    let txtLog = `log.addStep(\`${stepDesc}\`, \`${stepName}\`, \`${cat}\`, ${optionalMethodName});\n`;
 
     return txtToUpdate.replace(
         txtDocComment,
