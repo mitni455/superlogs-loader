@@ -92,7 +92,7 @@ function replaceMethod(txtToUpdate, txtDocComment, methodName, methodDesc, metho
     else{
         txtLog = `const log = logs.addMethod(\`${methodName}\`);\n`;
     }
-    txtLog += `\nconst loggerMethodName = ${methodName};\n`;
+    txtLog += `\nconst loggerMethodName = \`${methodName}\`;\n`;
 
     /**
      * @step add default step 
